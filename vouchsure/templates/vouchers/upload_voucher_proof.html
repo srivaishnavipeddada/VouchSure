@@ -1,0 +1,96 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  .proof-form-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 16px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .proof-form-container h2 {
+    text-align: center;
+    color: #004aad;
+    margin-bottom: 20px;
+  }
+
+  .proof-form-container p {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #333;
+  }
+
+  .proof-form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .proof-form-container input,
+  .proof-form-container textarea {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+
+  .proof-form-container button {
+    background-color: #004aad;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .proof-form-container button:hover {
+    background-color: #00338d;
+  }
+</style>
+<script>
+  document.addEventListener('contextmenu', function(e) {
+      e.preventDefault(); // Disable right-click menu
+  });
+</script>
+<div class="proof-form-container">
+  <h2>Upload Voucher Payment Proof</h2>
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <label for="phone">Phone Number:</label>
+    <input type="text" name="phone" required>
+
+    <label>Email:</label>
+    <input type="email" name="email" required>
+
+    <label for="message">Message:</label>
+    <input type="text" name="message" placeholder="e.g., Paid via GPay">
+
+    <label for="screenshot">Upload Screenshot:</label>
+    <input type="file" name="screenshot" required>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  
+</div>
+
+{% if submitted %}
+<script>
+  window.onload = function () {
+    alert("✅ Payment proof uploaded successfully! We’ll verify and email your voucher shortly.");
+    window.location.href = "/";
+  };
+</script>
+{% endif %}
+
+
+{% endblock %}

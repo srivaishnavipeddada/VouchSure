@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard - VouchSure</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f0f4f8;
+            margin: 0;
+            padding: 0;
+        }
+        .dashboard-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .section {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        .section h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .emoji {
+            font-size: 1.2em;
+            margin-right: 10px;
+        }
+        .emoji.voucher {
+            color: #e63946; /* Red */
+        }
+        .emoji.paper {
+            color: #ff9f1c; /* Orange/Yellow */
+        }
+        .heading-text {
+            background: linear-gradient(to right, #007bff, #00c6ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 14px 18px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background: #f5f5f5;
+            color: #444;
+            font-size: 0.95em;
+        }
+        tr:nth-child(even) td {
+            background: #fafafa;
+        }
+        td {
+            font-size: 0.95em;
+            color: #333;
+        }
+        .badge {
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+        .badge-verified {
+            background: #28a745;
+            color: white;
+        }
+        .badge-pending {
+            background: #6c757d;
+            color: white;
+        }
+        .no-data {
+            text-align: center;
+            padding: 20px;
+            font-style: italic;
+            color: #888;
+        }
+    </style>
+    <script>
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault(); // Disable right-click menu
+        });
+    </script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="section">
+            <h2><span class="emoji voucher">🎟️</span><span class="heading-text">Your Voucher Payments</span></h2>
+            {% if voucher_proofs %}
+                <table>
+                    <tr>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                    {% for proof in voucher_proofs %}
+                        <tr>
+                            <td>₹{{ proof.amount }}</td>
+                            <td>
+                                {% if proof.is_verified %}
+                                    <span class="badge badge-verified">Verified</span>
+                                {% else %}
+                                    <span class="badge badge-pending">Pending</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ proof.uploaded_at|date:"d M Y, H:i" }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <div class="no-data">No voucher payments yet.</div>
+            {% endif %}
+        </div>
+
+        <div class="section">
+            <h2><span class="emoji paper">📃</span><span class="heading-text">Your Research Paper Orders</span></h2>
+            {% if paper_proofs %}
+                <table>
+                    <tr>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                    {% for proof in paper_proofs %}
+                        <tr>
+                            <td>₹4500</td>
+                            <td>
+                                {% if proof.is_verified %}
+                                    <span class="badge badge-verified">Verified</span>
+                                {% else %}
+                                    <span class="badge badge-pending">Pending</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ proof.uploaded_at|date:"d M Y, H:i" }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <div class="no-data">No paper orders yet.</div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  .payment-box {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #f8f9fa;
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+  }
+
+  .payment-box h1 {
+    font-size: 26px;
+    color: #004aad;
+    margin-bottom: 20px;
+  }
+
+  .payment-box p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .payment-box img {
+    width: 250px;
+    height: 250px;
+    object-fit: contain;
+    border-radius: 10px;
+    border: 2px solid #004aad;
+  }
+
+  .note {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #666;
+  }
+
+  .confirm-button {
+    margin-top: 25px;
+    padding: 12px 24px;
+    background-color: #004aad;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .confirm-button:hover {
+    background-color: #00337a;
+  }
+</style>
+<script>
+  document.addEventListener('contextmenu', function(e) {
+      e.preventDefault(); // Disable right-click menu
+  });
+</script>
+
+<div class="payment-box">
+  <h1>Make Payment to Confirm Your Order</h1>
+  <p>Amount: ₹{{ voucher_amount }}</p>
+
+  <img src="{% get_static_prefix %}images/qr-codes/qr-{{ voucher_amount }}.jpg" alt="QR Code">
+  <p class="note">Scan this QR code using any UPI app to pay.</p>
+
+  <a href="{% url 'upload_proof' %}" class="confirm-button">I Have Paid</a>
+</div>
+
+{% endblock %}

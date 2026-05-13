@@ -1,0 +1,228 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Research Paper - VouchSure</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 15px 0;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        nav .logo {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 12px;
+            display: block;
+        }
+
+        nav ul ul {
+            display: none;
+            position: absolute;
+            top: 40px;
+            background-color: #444;
+            flex-direction: column;
+            min-width: 240px;
+        }
+
+        nav ul li:hover > ul {
+            display: flex;
+        }
+
+        nav ul ul li a:hover {
+            background-color: #555;
+        }
+
+        main {
+            padding: 40px 20px;
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        select, input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .summary-box {
+            text-align: left;
+            background: #fff;
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .summary-box p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 14px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+    <script>
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault(); // Disable right-click menu
+        });
+    </script>
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="logo">VouchSure</div>
+        <ul>
+            <li><a href="{% url 'main:index' %}">Home</a></li>
+            <li>
+                <a href="#">Services</a>
+                <ul>
+                    <li><a href="#">Buy Term Paper / Research Paper</a></li>
+                    <li><a href="#">Buy Capstone Project Paper</a></li>
+                    <li><a href="#">Check Plagiarism</a></li>
+                    <li><a href="#">Write My Paper (₹199)</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h2>Please provide order details</h2>
+
+    <div class="form-step active" id="step1">
+        <select id="paperType" required>
+            <option value="">-- Select Type of Paper --</option>
+            <option>Term Paper</option>
+            <option>Capstone Paper</option>
+            <option>Research Paper</option>
+        </select>
+        <select id="subject" required>
+            <option value="">-- Select Subject --</option>
+            <option>Medical</option>
+            <option>Computer Science</option>
+            <option>Biology</option>
+            <option>Business</option>
+            <option>Physics</option>
+        </select>
+        <button onclick="nextStep()">Next</button>
+    </div>
+
+    <div class="form-step" id="step2">
+        <input type="text" id="topic" placeholder="Topic Name" required>
+        <input type="text" id="mainIdea" placeholder="Main Idea" required>
+        <input type="text" id="requirements" placeholder="Any Special Requirements" required>
+        <input type="number" id="pages" placeholder="Page Count" min="1" required>
+        <button onclick="nextStep()">Next</button>
+    </div>
+
+    <div class="form-step" id="step3">
+        <label>Deadline Date:</label>
+        <input type="date" id="deadlineDate" required>
+        <label>Deadline Time:</label>
+        <input type="time" id="deadlineTime" required>
+        <button onclick="nextStep()">Next</button>
+    </div>
+
+    <div class="form-step" id="step4">
+        <h3>Payment Info</h3>
+        <div class="summary-box">
+            <p><strong>Basic order price:</strong> ₹4500</p>
+            <p><strong>Title & Reference pages:</strong> Free</p>
+            <p><strong>Unlimited revisions:</strong> Free</p>
+            <p><strong>Formatting:</strong> Free</p>
+            <hr>
+            <p><strong>Total price:</strong> ₹4500</p>
+        </div>
+        <p><strong>Scan to Pay:</strong></p>
+        <img src="{% static 'images/qr-codes/qr-4500.jpg' %}" alt="QR Code ₹4500" width="250">
+    </div>
+</main>
+
+<footer>
+    © 2025 VouchSure. All rights reserved.
+</footer>
+
+<script>
+    let currentStep = 1;
+
+    function nextStep() {
+        document.getElementById(`step${currentStep}`).classList.remove('active');
+        currentStep++;
+        document.getElementById(`step${currentStep}`).classList.add('active');
+    }
+</script>
+
+</body>
+</html>

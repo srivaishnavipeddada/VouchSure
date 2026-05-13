@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Voucher History</title>
+    <style>
+        body {
+            font-family: Poppins, sans-serif;
+            padding: 20px;
+        }
+        h2 {
+            color: #2c3e50;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #2980b9;
+            color: white;
+        }
+        .verified {
+            color: green;
+        }
+        .pending {
+            color: orange;
+        }
+    </style>
+    <script>
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault(); // Disable right-click menu
+        });
+    </script>
+</head>
+<body>
+    <h2>Your Voucher Purchase History</h2>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Status</th>
+        </tr>
+        {% for payment in payments %}
+        <tr>
+            <td>{{ payment.uploaded_at|date:"M d, Y H:i" }}</td>
+            <td>₹{{ payment.amount }}</td>
+            <td class="{{ payment.is_verified|yesno:'verified,pending' }}">
+                {{ payment.is_verified|yesno:"Verified,Pending" }}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">No voucher purchases yet.</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

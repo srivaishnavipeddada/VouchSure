@@ -1,0 +1,110 @@
+<!-- templates/main/papers_step1.html -->
+{% extends 'main/base.html' %}
+
+{% block content %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(to right, #e0f2fe, #f0f9ff);
+        margin: 0;
+        padding: 0;
+    }
+
+    .paper-container {
+        max-width: 600px;
+        margin: 60px auto;
+        padding: 40px;
+        background-color: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .paper-container:hover {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    h1 {
+        text-align: center;
+        color: #1e3a8a;
+        margin-bottom: 30px;
+        font-size: 26px;
+        font-weight: 600;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: #334155;
+        font-weight: 500;
+        font-size: 15px;
+    }
+
+    select {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 25px;
+        border: 1px solid #cbd5e1;
+        border-radius: 10px;
+        background-color: #f8fafc;
+        font-size: 14px;
+        color: #1e293b;
+        transition: border-color 0.2s ease;
+    }
+
+    select:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+
+    button {
+        width: 100%;
+        padding: 14px;
+        background-color: #2563eb;
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #1d4ed8;
+    }
+</style>
+<script>
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault(); // Disable right-click menu
+    });
+</script>
+<div class="paper-container">
+    <h1>Please provide order details</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="paper_type">Type of Paper:</label>
+        <select name="paper_type" required>
+            <option value="">Select type</option>
+            <option value="Term Paper">Term Paper</option>
+            <option value="Capstone Paper">Capstone Paper</option>
+            <option value="Research Paper">Research Paper</option>
+        </select>
+
+        <label for="subject">Subject:</label>
+        <select name="subject" required>
+            <option value="">Select subject</option>
+            <option value="Medical">Medical</option>
+            <option value="Computer Science">Computer Science</option>
+            <option value="Biology">Biology</option>
+            <option value="Engineering">Engineering</option>
+            <option value="Physics">Physics</option>
+        </select>
+
+        <button type="submit">Next</button>
+    </form>
+</div>
+{% endblock %}

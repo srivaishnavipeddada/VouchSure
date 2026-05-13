@@ -1,0 +1,90 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<style>
+  .papers-form {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 12px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .papers-form h1 {
+    font-size: 24px;
+    color: #004aad;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .papers-form label {
+    display: block;
+    font-weight: 600;
+    margin: 10px 0 5px;
+    color: #333;
+  }
+
+  .papers-form input[type="date"],
+  .papers-form input[type="time"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+  .papers-form button {
+    background-color: #004aad;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+  }
+
+  .papers-form button:hover {
+    background-color: #00357d;
+  }
+
+  .next-link {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .next-link a {
+    color: #004aad;
+    text-decoration: underline;
+    font-size: 14px;
+  }
+</style>
+<script>
+  document.addEventListener('contextmenu', function(e) {
+      e.preventDefault(); // Disable right-click menu
+  });
+</script>
+
+<main class="papers-form">
+  <h1>Set Your Deadline</h1>
+
+  <form method="POST" action="?step=3">
+    {% csrf_token %}
+
+    <label for="deadline_date">Deadline Date:</label>
+    <input type="date" name="deadline_date" id="deadline_date" required>
+
+    <label for="deadline_time">Deadline Time:</label>
+    <input type="time" name="deadline_time" id="deadline_time" required>
+
+    <button type="submit">Next</button>
+  </form>
+
+  <div class="next-link">
+    <a href="/vouchers/papers/?step=4">Skip to Payment</a>
+  </div>
+</main>
+{% endblock %}

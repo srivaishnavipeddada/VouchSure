@@ -1,0 +1,165 @@
+/* General Styles */
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  font-family: 'Protest Riot', sans-serif;
+  margin: 0;
+  padding-top: 80px; /* Fix for navbar pushing content up */
+  background-color: #f4f4f4;
+  color: #333;
+  text-align: center;
+  flex-grow: 1;
+}
+
+/* Header */
+header {
+  background-color: #3ea1e3;
+  padding: 15px 0;
+  color: white;
+  position: fixed; /* Keep navbar fixed */
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+header nav .logo h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+header nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+header nav ul li {
+  margin-left: 15px;
+}
+
+header nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 5px 10px;
+}
+
+/* Hero Section */
+.hero {
+  background: #f4f4f4;
+  padding: 50px 20px;
+  margin-top: 100px; /* Push content down */
+}
+
+.hero h1 {
+  font-size: 3em;
+  color: #333;
+}
+
+.hero p {
+  font-size: 1.2em;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.hero .buy-btn {
+  background: #ff5733;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+/* Features Section */
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px 20px;
+}
+
+.feature {
+  width: 30%;
+  background: #ddd;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.feature h3 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.feature p {
+  font-size: 1em;
+}
+
+/* QR Code Section */
+.qr-code-section {
+  padding: 20px 0;
+}
+
+.qr-code-section h2 {
+  font-size: 2em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.qr-code img {
+  width: 70%;
+  max-width: 250px;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+/* Footer */
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  margin-top: auto;
+}
+
+/* Logo Styling */
+header nav .logo img {
+  width: 120px;
+  height: auto;
+}
+
+/* Image Section */
+.image-section {
+  padding: 20px 0;
+}
+
+.promo-image {
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}

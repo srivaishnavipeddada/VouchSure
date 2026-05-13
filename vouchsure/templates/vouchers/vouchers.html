@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vouchers - VouchSure</title>
+    {% load static %}
+    <!-- Google Font -->
+    <link href="https://fonts.google.com/share?selection.family=Cardo:ital,wght@0,400;0,700;1,400" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cardo';
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: #333;
+            padding: 20px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+        
+        nav .logo img {
+            height: 50px;
+            object-fit: contain;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+        }
+        
+        nav ul li {
+            margin: 0 20px;
+        }
+        
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        nav a:hover {
+            color: #007bff;
+        }
+        
+        #vouchers {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        h2 {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+        
+        .voucher-selection-box {
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: white;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        
+        select {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            transition: border 0.3s ease;
+        }
+        
+        select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        
+        .buy-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        
+        .buy-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 16px 0;
+            text-align: center;
+            font-size: 14px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        footer p {
+            margin: 0;
+        }
+        
+    </style>
+    <script>
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault(); // Disable right-click menu
+        });
+    </script>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<header>
+    <nav>
+        <div class="logo">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'images/logo.png' %}" alt="VouchSure Logo">
+            </a>
+        </div>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Vouchers Section -->
+<section id="vouchers">
+    <h2>Available Vouchers</h2>
+    <p>Choose your voucher type and discount to proceed with payment.</p>
+
+    <div class="voucher-selection-box">
+        <form id="paymentForm" method="GET" action="{% url 'voucher_view' %}">
+            {% csrf_token %}
+            <select id="voucherSelect" name="voucher">
+                <option value="" disabled selected>Select Voucher</option>
+                <option value="aws-ai">AWS Certified AI Practitioner</option>
+                <option value="aws-cp">AWS Certified Cloud Practitioner</option>
+                <option value="aws-dev">AWS Developer Associate</option>
+                <option value="aws-data">AWS Data Engineer Associate</option>
+                <option value="aws-sysops">AWS SysOps Administrator</option>
+                <option value="aws-sa">AWS Solutions Architect Associate</option>
+                <option value="aws-ml">AWS Machine Learning Engineer</option>
+                <option value="az-900">Microsoft Azure Fundamentals</option>
+            </select>
+
+            <select id="discountSelect" name="discount">
+                <option value="" disabled selected>Select Discount</option>
+            </select>
+
+            <button class="buy-btn" type="submit">Proceed to Payment</button>
+        </form>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2025 VouchSure. All rights reserved.</p>
+</footer>
+
+<script>
+    const voucherOptions = {
+        "aws-ai": ['50', '100'],
+        "aws-cp": ['50', '100'],
+        "aws-dev": ['50', '100'],
+        "aws-data": ['50', '100'],
+        "aws-sysops": ['50', '100'],
+        "aws-sa": ['50', '100'],
+        "aws-ml": ['50', '100'],
+        "az-900": ['50']  // Only 50% available
+    };
+
+    const voucherPrices = {
+        'aws-ai': {'50': 1800, '100': 3500},
+        'aws-cp': {'50': 1900, '100': 3600},
+        'aws-dev': {'50': 3500, '100': 4500},
+        'aws-data': {'50': 3500, '100': 4500},
+        'aws-sysops': {'50': 3500, '100': 4500},
+        'aws-sa': {'50': 3500, '100': 4500},
+        'aws-ml': {'50': 3500, '100': 4500},
+        'az-900': {'50': 1100}
+    };
+
+    const voucherSelect = document.getElementById('voucherSelect');
+    const discountSelect = document.getElementById('discountSelect');
+
+    voucherSelect.addEventListener('change', function () {
+        const selectedVoucher = this.value;
+        const discounts = voucherOptions[selectedVoucher] || [];
+
+        // Reset discount dropdown
+        discountSelect.innerHTML = '<option value="" disabled selected>Select Discount</option>';
+
+        // Populate available discounts
+        discounts.forEach(discount => {
+            const option = document.createElement('option');
+            option.value = discount;
+            option.textContent = `${discount}% Discount`;
+            discountSelect.appendChild(option);
+        });
+    });
+</script>
+
+</body>
+</html>
